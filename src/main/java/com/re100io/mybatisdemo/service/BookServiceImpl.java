@@ -3,11 +3,14 @@ package com.re100io.mybatisdemo.service;
 
 import com.re100io.mybatisdemo.mapper.BookMapper;
 import com.re100io.mybatisdemo.entity.Book;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class BookServiceImpl implements BookService {
 
@@ -20,6 +23,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getAllBooks() {
+        log.info("BookMapper.getAllBooks()");
         return bookMapper.getAllBooks();
     }
 
