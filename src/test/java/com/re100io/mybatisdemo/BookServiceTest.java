@@ -1,7 +1,7 @@
 package com.re100io.mybatisdemo;
 
 
-import com.re100io.mybatisdemo.entity.Book;
+import com.re100io.mybatisdemo.model.Book;
 import com.re100io.mybatisdemo.mapper.BookMapper;
 import com.re100io.mybatisdemo.service.BookService;
 import org.junit.jupiter.api.BeforeEach;

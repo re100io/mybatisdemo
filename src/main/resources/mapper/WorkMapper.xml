@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.re100io.mybatisdemo.mapper.WorkMapper">
+
+    <resultMap id="workMap" type="com.re100io.mybatisdemo.model.Work">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="publication_date" property="publicationDate" />
+        <result column="genre" property="genre" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <insert id="insertWork" parameterType="com.re100io.mybatisdemo.model.Work">
+        INSERT INTO Work (title, publication_date, genre)
+        VALUES (#{title}, #{publicationDate}, #{genre})
+    </insert>
+
+    <select id="selectWorkById" parameterType="long" resultMap="workMap">
+        SELECT * FROM Work WHERE id = #{id}
+    </select>
+
+    <select id="selectAllWorks" resultMap="workMap">
+        SELECT * FROM Work
+    </select>
+
+    <update id="updateWork" parameterType="com.re100io.mybatisdemo.model.Work">
+        UPDATE Work
+        SET title = #{title}, publication_date = #{publicationDate}, genre = #{genre}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteWorkById" parameterType="long">
+        DELETE FROM Work WHERE id = #{id}
+    </delete>
+
+</mapper>

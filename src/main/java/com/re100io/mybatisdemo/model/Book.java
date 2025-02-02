@@ -1,4 +1,4 @@
-package com.re100io.mybatisdemo.entity;
+package com.re100io.mybatisdemo.model;
 
 
 import lombok.AllArgsConstructor;

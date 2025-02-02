@@ -1,7 +1,7 @@
 package com.re100io.mybatisdemo.service;
 
 
-import com.re100io.mybatisdemo.entity.Book;
+import com.re100io.mybatisdemo.model.Book;
 
 import java.util.List;
 

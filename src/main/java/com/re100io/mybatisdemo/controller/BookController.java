@@ -1,6 +1,6 @@
 package com.re100io.mybatisdemo.controller;
 
-import com.re100io.mybatisdemo.entity.Book;
+import com.re100io.mybatisdemo.model.Book;
 import com.re100io.mybatisdemo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -2,8 +2,7 @@ package com.re100io.mybatisdemo.service;
 
 
 import com.re100io.mybatisdemo.mapper.BookMapper;
-import com.re100io.mybatisdemo.entity.Book;
-import lombok.extern.java.Log;
+import com.re100io.mybatisdemo.model.Book;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
