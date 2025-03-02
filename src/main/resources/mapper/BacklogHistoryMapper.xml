@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.re100io.agileplatform.dao.BacklogHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.re100io.agileplatform.entity.BacklogHistory">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="backlog_item_id" jdbcType="BIGINT" property="backlogItemId" />
+    <result column="field" jdbcType="VARCHAR" property="field" />
+    <result column="changed_by" jdbcType="BIGINT" property="changedBy" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.re100io.agileplatform.entity.BacklogHistoryWithBLOBs">
+    <result column="old_value" jdbcType="LONGVARCHAR" property="oldValue" />
+    <result column="new_value" jdbcType="LONGVARCHAR" property="newValue" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, backlog_item_id, field, changed_by, created_at
+  </sql>
+  <sql id="Blob_Column_List">
+    old_value, new_value
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.re100io.agileplatform.entity.BacklogHistoryExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from backlog_history
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.re100io.agileplatform.entity.BacklogHistoryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from backlog_history
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from backlog_history
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from backlog_history
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.re100io.agileplatform.entity.BacklogHistoryExample">
+    delete from backlog_history
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.re100io.agileplatform.entity.BacklogHistoryWithBLOBs">
+    insert into backlog_history (id, backlog_item_id, field, 
+      changed_by, created_at, old_value, 
+      new_value)
+    values (#{id,jdbcType=BIGINT}, #{backlogItemId,jdbcType=BIGINT}, #{field,jdbcType=VARCHAR}, 
+      #{changedBy,jdbcType=BIGINT}, #{createdAt,jdbcType=TIMESTAMP}, #{oldValue,jdbcType=LONGVARCHAR}, 
+      #{newValue,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.re100io.agileplatform.entity.BacklogHistoryWithBLOBs">
+    insert into backlog_history
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="backlogItemId != null">
+        backlog_item_id,
+      </if>
+      <if test="field != null">
+        field,
+      </if>
+      <if test="changedBy != null">
+        changed_by,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="oldValue != null">
+        old_value,
+      </if>
+      <if test="newValue != null">
+        new_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="backlogItemId != null">
+        #{backlogItemId,jdbcType=BIGINT},
+      </if>
+      <if test="field != null">
+        #{field,jdbcType=VARCHAR},
+      </if>
+      <if test="changedBy != null">
+        #{changedBy,jdbcType=BIGINT},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oldValue != null">
+        #{oldValue,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="newValue != null">
+        #{newValue,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.re100io.agileplatform.entity.BacklogHistoryExample" resultType="java.lang.Long">
+    select count(*) from backlog_history
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update backlog_history
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.backlogItemId != null">
+        backlog_item_id = #{record.backlogItemId,jdbcType=BIGINT},
+      </if>
+      <if test="record.field != null">
+        field = #{record.field,jdbcType=VARCHAR},
+      </if>
+      <if test="record.changedBy != null">
+        changed_by = #{record.changedBy,jdbcType=BIGINT},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.oldValue != null">
+        old_value = #{record.oldValue,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.newValue != null">
+        new_value = #{record.newValue,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update backlog_history
+    set id = #{record.id,jdbcType=BIGINT},
+      backlog_item_id = #{record.backlogItemId,jdbcType=BIGINT},
+      field = #{record.field,jdbcType=VARCHAR},
+      changed_by = #{record.changedBy,jdbcType=BIGINT},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      old_value = #{record.oldValue,jdbcType=LONGVARCHAR},
+      new_value = #{record.newValue,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update backlog_history
+    set id = #{record.id,jdbcType=BIGINT},
+      backlog_item_id = #{record.backlogItemId,jdbcType=BIGINT},
+      field = #{record.field,jdbcType=VARCHAR},
+      changed_by = #{record.changedBy,jdbcType=BIGINT},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.re100io.agileplatform.entity.BacklogHistoryWithBLOBs">
+    update backlog_history
+    <set>
+      <if test="backlogItemId != null">
+        backlog_item_id = #{backlogItemId,jdbcType=BIGINT},
+      </if>
+      <if test="field != null">
+        field = #{field,jdbcType=VARCHAR},
+      </if>
+      <if test="changedBy != null">
+        changed_by = #{changedBy,jdbcType=BIGINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oldValue != null">
+        old_value = #{oldValue,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="newValue != null">
+        new_value = #{newValue,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.re100io.agileplatform.entity.BacklogHistoryWithBLOBs">
+    update backlog_history
+    set backlog_item_id = #{backlogItemId,jdbcType=BIGINT},
+      field = #{field,jdbcType=VARCHAR},
+      changed_by = #{changedBy,jdbcType=BIGINT},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      old_value = #{oldValue,jdbcType=LONGVARCHAR},
+      new_value = #{newValue,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.re100io.agileplatform.entity.BacklogHistory">
+    update backlog_history
+    set backlog_item_id = #{backlogItemId,jdbcType=BIGINT},
+      field = #{field,jdbcType=VARCHAR},
+      changed_by = #{changedBy,jdbcType=BIGINT},
+      created_at = #{createdAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.re100io.agileplatform.entity.BacklogHistory">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="backlog_item_id" jdbcType="BIGINT" property="backlogItemId" />
+    <result column="field" jdbcType="VARCHAR" property="field" />
+    <result column="changed_by" jdbcType="BIGINT" property="changedBy" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.re100io.agileplatform.entity.BacklogHistoryWithBLOBs">
+    <result column="old_value" jdbcType="LONGVARCHAR" property="oldValue" />
+    <result column="new_value" jdbcType="LONGVARCHAR" property="newValue" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, backlog_item_id, field, changed_by, created_at
+  </sql>
+  <sql id="Blob_Column_List">
+    old_value, new_value
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.re100io.agileplatform.entity.BacklogHistoryExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from backlog_history
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.re100io.agileplatform.entity.BacklogHistoryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from backlog_history
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from backlog_history
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from backlog_history
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.re100io.agileplatform.entity.BacklogHistoryExample">
+    delete from backlog_history
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.re100io.agileplatform.entity.BacklogHistoryWithBLOBs">
+    insert into backlog_history (id, backlog_item_id, field, 
+      changed_by, created_at, old_value, 
+      new_value)
+    values (#{id,jdbcType=BIGINT}, #{backlogItemId,jdbcType=BIGINT}, #{field,jdbcType=VARCHAR}, 
+      #{changedBy,jdbcType=BIGINT}, #{createdAt,jdbcType=TIMESTAMP}, #{oldValue,jdbcType=LONGVARCHAR}, 
+      #{newValue,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.re100io.agileplatform.entity.BacklogHistoryWithBLOBs">
+    insert into backlog_history
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="backlogItemId != null">
+        backlog_item_id,
+      </if>
+      <if test="field != null">
+        field,
+      </if>
+      <if test="changedBy != null">
+        changed_by,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="oldValue != null">
+        old_value,
+      </if>
+      <if test="newValue != null">
+        new_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="backlogItemId != null">
+        #{backlogItemId,jdbcType=BIGINT},
+      </if>
+      <if test="field != null">
+        #{field,jdbcType=VARCHAR},
+      </if>
+      <if test="changedBy != null">
+        #{changedBy,jdbcType=BIGINT},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oldValue != null">
+        #{oldValue,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="newValue != null">
+        #{newValue,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.re100io.agileplatform.entity.BacklogHistoryExample" resultType="java.lang.Long">
+    select count(*) from backlog_history
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update backlog_history
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.backlogItemId != null">
+        backlog_item_id = #{record.backlogItemId,jdbcType=BIGINT},
+      </if>
+      <if test="record.field != null">
+        field = #{record.field,jdbcType=VARCHAR},
+      </if>
+      <if test="record.changedBy != null">
+        changed_by = #{record.changedBy,jdbcType=BIGINT},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.oldValue != null">
+        old_value = #{record.oldValue,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.newValue != null">
+        new_value = #{record.newValue,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update backlog_history
+    set id = #{record.id,jdbcType=BIGINT},
+      backlog_item_id = #{record.backlogItemId,jdbcType=BIGINT},
+      field = #{record.field,jdbcType=VARCHAR},
+      changed_by = #{record.changedBy,jdbcType=BIGINT},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      old_value = #{record.oldValue,jdbcType=LONGVARCHAR},
+      new_value = #{record.newValue,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update backlog_history
+    set id = #{record.id,jdbcType=BIGINT},
+      backlog_item_id = #{record.backlogItemId,jdbcType=BIGINT},
+      field = #{record.field,jdbcType=VARCHAR},
+      changed_by = #{record.changedBy,jdbcType=BIGINT},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.re100io.agileplatform.entity.BacklogHistoryWithBLOBs">
+    update backlog_history
+    <set>
+      <if test="backlogItemId != null">
+        backlog_item_id = #{backlogItemId,jdbcType=BIGINT},
+      </if>
+      <if test="field != null">
+        field = #{field,jdbcType=VARCHAR},
+      </if>
+      <if test="changedBy != null">
+        changed_by = #{changedBy,jdbcType=BIGINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oldValue != null">
+        old_value = #{oldValue,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="newValue != null">
+        new_value = #{newValue,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.re100io.agileplatform.entity.BacklogHistoryWithBLOBs">
+    update backlog_history
+    set backlog_item_id = #{backlogItemId,jdbcType=BIGINT},
+      field = #{field,jdbcType=VARCHAR},
+      changed_by = #{changedBy,jdbcType=BIGINT},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      old_value = #{oldValue,jdbcType=LONGVARCHAR},
+      new_value = #{newValue,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.re100io.agileplatform.entity.BacklogHistory">
+    update backlog_history
+    set backlog_item_id = #{backlogItemId,jdbcType=BIGINT},
+      field = #{field,jdbcType=VARCHAR},
+      changed_by = #{changedBy,jdbcType=BIGINT},
+      created_at = #{createdAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

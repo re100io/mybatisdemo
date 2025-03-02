@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.re100io.mybatisdemo.mapper.WorkMapper">
+<mapper namespace="com.re100io.agileplatform.dao.mapper.WorkMapper">
 
-    <resultMap id="workMap" type="com.re100io.mybatisdemo.model.Work">
+    <resultMap id="workMap" type="com.re100io.agileplatform.model.Work">
         <id column="id" property="id" />
         <result column="title" property="title" />
         <result column="publication_date" property="publicationDate" />
@@ -11,7 +11,7 @@
         <result column="update_time" property="updateTime" />
     </resultMap>
 
-    <insert id="insertWork" parameterType="com.re100io.mybatisdemo.model.Work">
+    <insert id="insertWork" parameterType="com.re100io.agileplatform.model.Work">
         INSERT INTO Work (title, publication_date, genre)
         VALUES (#{title}, #{publicationDate}, #{genre})
     </insert>
@@ -24,7 +24,7 @@
         SELECT * FROM Work
     </select>
 
-    <update id="updateWork" parameterType="com.re100io.mybatisdemo.model.Work">
+    <update id="updateWork" parameterType="com.re100io.agileplatform.model.Work">
         UPDATE Work
         SET title = #{title}, publication_date = #{publicationDate}, genre = #{genre}
         WHERE id = #{id}

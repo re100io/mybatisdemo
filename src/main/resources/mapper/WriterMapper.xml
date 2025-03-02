@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.re100io.mybatisdemo.mapper.WriterMapper">
+<mapper namespace="com.re100io.agileplatform.dao.mapper.WriterMapper">
 
-    <resultMap id="writerMap" type="com.re100io.mybatisdemo.model.Writer">
+    <resultMap id="writerMap" type="com.re100io.agileplatform.model.Writer">
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="nationality" property="nationality" />
@@ -12,7 +12,7 @@
         <result column="update_time" property="updateTime" />
     </resultMap>
 
-    <insert id="insertWriter" parameterType="com.re100io.mybatisdemo.model.Writer">
+    <insert id="insertWriter" parameterType="com.re100io.agileplatform.model.Writer">
         INSERT INTO Writer (name, nationality, birth_date, bio)
         VALUES (#{name}, #{nationality}, #{birthDate}, #{bio})
     </insert>
@@ -25,7 +25,7 @@
         SELECT * FROM Writer
     </select>
 
-    <update id="updateWriter" parameterType="com.re100io.mybatisdemo.model.Writer">
+    <update id="updateWriter" parameterType="com.re100io.agileplatform.model.Writer">
         UPDATE Writer
         SET name = #{name}, nationality = #{nationality}, birth_date = #{birthDate}, bio = #{bio}
         WHERE id = #{id}
